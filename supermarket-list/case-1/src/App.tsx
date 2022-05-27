@@ -1,9 +1,9 @@
-import type {Item} from "./types";
-
-import {useEffect, useState} from "react";
-
-import styles from "./App.module.scss";
+import { useEffect, useState } from "react";
 import api from "./api";
+import styles from "./App.module.scss";
+import type { Item } from "./types";
+
+
 
 interface Form extends HTMLFormElement {
   text: HTMLInputElement;
@@ -19,7 +19,17 @@ function App() {
   }
 
   function handleAdd(event: React.ChangeEvent<Form>) {
-    // Should implement
+    event.preventDefault();
+    if (event.target[0].value) {
+      const newItem: Item = {
+        completed: false,
+        id: items.length + 1,
+        text: event.target[0].value,
+      };
+      setItems([...items, newItem]);
+    }else{
+      console.log("Escribe algo")
+    }
   }
 
   function handleRemove(id: Item["id"]) {
