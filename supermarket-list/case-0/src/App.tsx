@@ -20,8 +20,8 @@ function App() {
         <button>Add</button>
       </form>
       <ul>
-        {items.map((item) => (
-          <li className={item.completed ? styles.completed : ""}>
+        {items?.map((item) => (
+          <li key={item.id} className={item.completed ? styles.completed : ""}>
             {item.text} <button>[X]</button>
           </li>
         ))}
