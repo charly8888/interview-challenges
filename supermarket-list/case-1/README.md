@@ -1,7 +1,7 @@
 # Ejercicios de entrevista
 
 ## Nivel 1
-- [] Nuestra aplicación se recarga al agregar un elemento
+- [X] Nuestra aplicación se recarga al agregar un elemento
 
 ## Nivel 2
 - [] Nuestro input no se limpia al agregar elementos nuevos
