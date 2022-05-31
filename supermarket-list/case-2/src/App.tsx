@@ -1,9 +1,9 @@
-import type {Item} from "./types";
-
-import {useEffect, useState} from "react";
-
-import styles from "./App.module.scss";
+import { useEffect, useState } from "react";
 import api from "./api";
+import styles from "./App.module.scss";
+import type { Item } from "./types";
+
+
 
 interface Form extends HTMLFormElement {
   text: HTMLInputElement;
@@ -14,13 +14,25 @@ function App() {
   const [isLoading, toggleLoading] = useState<boolean>(true);
 
   function handleToggle(id: Item["id"]) {
-    // Should implement
+    setItems(
+      items.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            completed: !item.completed,
+          };
+        }
+
+        return item;
+      }),
+    );
   }
 
   function handleAdd(event: React.ChangeEvent<Form>) {
     event.preventDefault();
+    if (event.target.text.value === "") return;
 
-    setItems((items) =>
+    setItems(
       items.concat({
         id: +new Date(),
         completed: false,
@@ -30,8 +42,8 @@ function App() {
 
     event.target.text.value = "";
   }
-
-  function handleRemove(id: Item["id"]) {
+  function handleRemove(id: Item["id"], e) {
+    e.stopPropagation();
     setItems((items) => items.filter((item) => item.id !== id));
   }
 
@@ -58,7 +70,7 @@ function App() {
             className={item.completed ? styles.completed : ""}
             onClick={() => handleToggle(item.id)}
           >
-            {item.text} <button onClick={() => handleRemove(item.id)}>[X]</button>
+            {item.text} <button onClick={(e) => handleRemove(item.id, e)}>[X]</button>
           </li>
         ))}
       </ul>
